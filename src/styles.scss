@@ -1,4 +1,28 @@
 /* =============================================================================
+2. General styles
+============================================================================= */
+
+html {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #000;
+  overflow: hidden;
+  background-size: cover;
+  -webkit-background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* =============================================================================
 Loadig animation
 ============================================================================= */
 .no-js .preloader,
