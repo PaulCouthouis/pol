@@ -1,0 +1,42 @@
+:host {
+  display: flex;
+  flex-direction: column;
+
+  img {
+    width: 100%;
+  }
+
+  section {
+    background-color: #333;
+    padding: 30px 30px 50px;
+  }
+
+  header {
+    color: #a5a5a5;
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 32px;
+    font-weight: 600;
+  }
+
+  article {
+    margin: 15px 0 30px;
+  }
+
+  p {
+    color: #d5d5d5;
+    font-size: 14px;
+    line-height: 1.85em;
+    margin-bottom: 10px;
+  }
+
+  a {
+    border: 2px solid #0099e5;
+    display: block;
+    padding: 10px;
+    text-align: center;
+    width: 155px;
+  }
+}

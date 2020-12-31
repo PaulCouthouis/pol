@@ -1,1 +1,9 @@
-<p>about-me works!</p>
+<img src="{{ photo }}" alt="photo">
+<section>
+  <header>{{ job }}</header>
+  <h1>{{ name }}</h1>
+  <article>
+    <p *ngFor="let p of description">{{p}}</p>
+  </article>
+  <a href="#">{{button}}</a>
+</section>
