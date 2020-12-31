@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class MobileHeaderComponent {
   name = 'Paul Couthouis';
-  photo = 'assets/images/photo.jpg';
+  photo = 'assets/images/test2.jpg';
 }

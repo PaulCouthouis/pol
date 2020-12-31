@@ -1,13 +1,12 @@
 :host {
+  background-image: url(../../../assets/images/test.jpg);
+  background-size: contain;
   display: flex;
   flex-direction: column;
 
-  img {
-    width: 100%;
-  }
-
   section {
     background-color: #333;
+    margin-top: 300px;
     padding: 30px 30px 50px;
   }
 
