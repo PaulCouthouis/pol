@@ -17,6 +17,7 @@
     }
 
     p {
+      font-size: 18px;
       margin-left: 8px;
     }
   }
@@ -30,4 +31,27 @@
   //     line-height: 50px;
   //   }
   // }
+
+  @media screen and (min-width: 1024px) {
+    height: 100%;
+    padding: 0;
+    width: 160px;
+
+    > div:nth-child(1) {
+      flex-direction: column;
+
+      img {
+        height: 80px;
+        margin-top: 20px;
+      }
+
+      p {
+        margin: 20px 0;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.2em;
+        text-align: center;
+      }
+    }
+  }
 }

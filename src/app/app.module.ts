@@ -3,14 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MobileHeaderComponent } from './mobile-header/mobile-header.component';
+import { HeaderComponent } from './header/header.component';
 import { MainComponent } from './main/main.component';
 import { AboutMeComponent } from './main/about-me/about-me.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MobileHeaderComponent,
+    HeaderComponent,
     MainComponent,
     AboutMeComponent
   ],
