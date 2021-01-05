@@ -1,0 +1,97 @@
+version: 2.1
+
+executors:
+  my-executor:
+    docker:
+      - image: circleci/node:10-browsers
+    working_directory: ~/repo
+
+jobs:
+  build:
+    executor: my-executor
+    steps:
+      - checkout
+      - restore_cache:
+          key: repo-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - run: npm ci
+      - save_cache:
+          key: repo-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - 'node_modules'
+      - run: npm run lint
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+          # taken to be the root directory of the workspace.
+          root: /home/circleci
+          paths:
+            - repo/*
+            - .cache/*
+  # tests:
+  #   executor: my-executor
+  #   steps:
+  #     - attach_workspace:
+  #         # Must be absolute path or relative path from working_directory
+  #         at: /home/circleci
+  #     - run: npm run test
+  # e2e:
+  #   executor: my-executor
+  #   steps:
+  #     - attach_workspace:
+  #         # Must be absolute path or relative path from working_directory
+  #         at: /home/circleci
+  #     - run: npm run e2e
+  package:
+    executor: my-executor
+    steps:
+      - checkout
+      - restore_cache:
+          key: repo-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - run: npm install
+      - save_cache:
+          key: repo-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - 'node_modules'
+      - run: npm run build:prod
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - dist/*
+
+  ftp:
+    machine:
+      image: circleci/classic:latest
+    steps:
+      - attach_workspace:
+          at: ~/work
+      - run:
+          name: Install LFTP
+          command: |
+            sudo apt-get update;
+            sudo apt-get install lftp;
+      - checkout
+      - run:
+          name: Send Via SFTP
+          command: lftp ftp://${username}:${password}@${hostname} -e "mirror -v -R ~/work/dist/pol ./www; quit"
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - build
+      - to_put_in_production:
+          type: approval
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
+      - package:
+          requires:
+            - to_put_in_production
+            - build
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
+      - ftp:
+          requires:
+            - package
